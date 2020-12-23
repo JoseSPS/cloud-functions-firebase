@@ -15,3 +15,5 @@ Project to know cloud functions on Firebase
 * _firebase serve_
 * _firebase deploy_ 
 
+## Deploy Only Functions
+* _firebase deploy --only functions_
