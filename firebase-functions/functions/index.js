@@ -94,3 +94,24 @@ exports.upvote = functions.https.onCall(async (data, context) => {
     });
 
 });
+
+// firstore for triggers monitoring activities
+exports.logActivities = functions.firestore.document('/{collection}/{id}')
+    .onCreate((snap, context) => {
+        console.log(snap.data());
+
+        const collection = context.params.collection;
+        const id = context.params.id;
+
+        const activities = admin.firestore().collection('activities');
+
+        if ( collection === 'requests' ) {
+            return activities.add({ text: 'a new tutorial request was add'});
+        }
+        if ( collection === 'users' ) {
+            return activities.add({ text: 'a new user signed up'});
+        }
+
+        return null;
+
+    });
